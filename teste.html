@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Sound | MINYL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .quiz-hero {
+            background: #e9dfc9;
+            padding: 65px 8% 55px;
+            text-align: center;
+        }
+
+        .quiz-label {
+            color: #a45b3d;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .quiz-hero h1 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 65px);
+            margin: 15px 0;
+        }
+
+        .quiz-hero p {
+            color: #666052;
+            font-size: 15px;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .quiz-decoration {
+            font-size: 35px;
+            margin-top: 22px;
+            color: #a45b3d;
+        }
+
+        .quiz-container {
+            max-width: 850px;
+            margin: 55px auto 80px;
+            padding: 0 22px;
+        }
+
+        .quiz-intro {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .quiz-intro h2 {
+            font-family: 'Playfair Display', serif;
+            color: #303b2c;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-intro p {
+            color: #777064;
+            font-size: 14px;
+        }
+
+        .quiz-question {
+            background: #fffdf7;
+            border: 1px solid #e8dfcd;
+            border-radius: 13px;
+            padding: 27px;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            color: #a45b3d;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .quiz-question h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            color: #303b2c;
+            margin: 10px 0 20px;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 15px;
+            border: 1px solid #e6ddcc;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #514c40;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: #a45b3d;
+            background: #f7efe1;
+        }
+
+        .quiz-option:has(input:checked) {
+            border-color: #66734f;
+            background: #edf0e5;
+            color: #303b2c;
+        }
+
+        .quiz-option input {
+            accent-color: #66734f;
+        }
+
+        .quiz-submit {
+            display: block;
+            margin: 35px auto 0;
+            padding: 15px 35px;
+            background: #303b2c;
+            color: #fffdf7;
+            border: none;
+            border-radius: 5px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quiz-submit:hover {
+            background: #a45b3d;
+            transform: translateY(-2px);
+        }
+
+        .quiz-result {
+            display: none;
+            background: #e9dfc9;
+            border-radius: 14px;
+            padding: 38px 25px;
+            margin-top: 35px;
+            text-align: center;
+            border: 1px solid #d9cbb0;
+        }
+
+        .quiz-result h2 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            margin: 12px 0;
+        }
+
+        .quiz-result p {
+            color: #5e594e;
+            line-height: 1.8;
+            font-size: 14px;
+            max-width: 520px;
+            margin: 10px auto;
+        }
+
+        .result-record {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #d3c5a9;
+        }
+
+        .result-record strong {
+            display: block;
+            color: #a45b3d;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-top: 8px;
+        }
+
+        .quiz-again {
+            margin-top: 20px;
+            padding: 11px 22px;
+            background: transparent;
+            border: 1px solid #303b2c;
+            color: #303b2c;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-question {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        <p>Música que fica. Descubra seu próximo disco favorito.</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <span class="logo-disc">
+                    <span class="logo-disc-center"></span>
+                </span>
+                <span class="logo-name">MINYL</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="catalogo.html">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites ♡</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Join us</a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="quiz-hero">
+            <span class="quiz-label">A little music personality test</span>
+
+            <h1>Find Your Sound.</h1>
+
+            <p>
+                Se sua personalidade fosse um disco, qual seria?
+                Responda algumas perguntinhas e descubra qual universo musical combina com você.
+            </p>
+
+            <div class="quiz-decoration">♫ &nbsp; ♪ &nbsp; ♬</div>
+        </section>
+
+        <section class="quiz-container">
+
+            <div class="quiz-intro">
+                <h2>Let's find your rhythm.</h2>
+                <p>Escolha uma alternativa em cada pergunta e deixe a música falar por você.</p>
+            </div>
+
+            <form id="personalityForm">
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 01</span>
+                    <h3>Como seria seu sábado perfeito?</h3>
+
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="rock" required>
+                            Um show cheio de energia.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="pop">
+                            Uma festa com meus amigos.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="mpb">
+                            Um dia tranquilo, sem pressa.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="indie">
+                            Conhecer um lugar diferente.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="jazz">
+                            Uma noite aconchegante.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 02</span>
+                    <h3>Qual dessas palavras mais combina com você?</h3>
+
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="rock" required>
+                            Intenso(a).
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="pop">
+                            Espontâneo(a).
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="mpb">
+                            Sensível.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="indie">
+                            Criativo(a).
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="jazz">
+                            Elegante.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 03</span>
+                    <h3>Escolha um cenário:</h3>
+
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="rock" required>
+                            Uma estrada com o volume no máximo.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="pop">
+                            Uma cidade iluminada à noite.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="mpb">
+                            Um fim de tarde na varanda.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="indie">
+                            Uma cafeteria escondida.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="jazz">
+                            Um bar com luz baixa.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 04</span>
+                    <h3>O que você mais procura em uma música?</h3>
+
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="rock" required>
+                            Energia e atitude.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="pop">
+                            Um ritmo que não sai da cabeça.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="mpb">
+                            Uma letra que toca o coração.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="indie">
+                            Algo diferente e autêntico.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="jazz" required>
+                            Uma atmosfera especial.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <span class="question-number">Question 05</span>
+                    <h3>Se pudesse escolher uma época para viver, qual seria?</h3>
+
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="rock" required>
+                            Os anos 70, com muito rock.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="pop">
+                            Os anos 80, cheios de cores.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="mpb">
+                            Os anos 70 da música brasileira.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="indie">
+                            Os anos 90, alternativos.
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="jazz">
+                            Os anos 50, clássicos e elegantes.
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="quiz-submit">
+                    Discover my sound ♫
+                </button>
+
+            </form>
+
+            <div id="testResult" class="quiz-result">
+                <span>YOUR MUSICAL PERSONALITY</span>
+                <h2 id="resultTitle">Seu resultado aparecerá aqui</h2>
+                <p id="resultDescription"></p>
+
+                <div class="result-record">
+                    <p>We picked a record for you:</p>
+                    <strong id="testAlbum"></strong>
+                </div>
+
+                <button type="button" class="quiz-again" onclick="location.reload()">
+                    Try again
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© <span data-current-year></span> MINYL — Música que fica.</p>
+            <a href="curriculo.pdf">Meu currículo</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>

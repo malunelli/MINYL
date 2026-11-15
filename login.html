@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MINYL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .login-main {
+            min-height: 690px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #f6f1e7;
+        }
+
+        .login-art {
+            background: #303b2c;
+            color: #fff8e9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 55px 30px;
+            overflow: hidden;
+        }
+
+        .login-art .art-label {
+            color: #d4b77a;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .login-art h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(35px, 5vw, 55px);
+            line-height: 1.1;
+            margin: 20px 0;
+            max-width: 430px;
+        }
+
+        .login-art p {
+            color: #d5d2c4;
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 340px;
+        }
+
+        .login-record {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            margin: 35px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                repeating-radial-gradient(
+                    circle,
+                    #22251f 0px,
+                    #22251f 3px,
+                    #383c32 4px,
+                    #22251f 5px
+                );
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: spin-record 12s linear infinite;
+        }
+
+        .login-record-center {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #a45b3d;
+            border: 5px solid #d4b77a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff8e9;
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+        }
+
+        @keyframes spin-record {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .login-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 55px 30px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 390px;
+        }
+
+        .login-label {
+            color: #a45b3d;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .login-box h2 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            margin: 13px 0 8px;
+        }
+
+        .login-description {
+            color: #817969;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .login-field {
+            margin-bottom: 20px;
+        }
+
+        .login-field label {
+            display: block;
+            color: #454638;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .login-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 15px;
+            border: 1px solid #ddd3c0;
+            border-radius: 5px;
+            background: #fffdf8;
+            color: #303b2c;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+
+        .login-field input:focus {
+            border-color: #66734f;
+            box-shadow: 0 0 0 3px rgba(102, 115, 79, 0.12);
+        }
+
+        .login-submit {
+            width: 100%;
+            padding: 15px;
+            margin-top: 8px;
+            background: #303b2c;
+            color: #fffdf7;
+            border: none;
+            border-radius: 5px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-submit:hover {
+            background: #a45b3d;
+        }
+
+        .login-alternative {
+            text-align: center;
+            color: #817969;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+
+        .login-alternative a {
+            color: #a45b3d;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-alternative a:hover {
+            text-decoration: underline;
+        }
+
+        .login-back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #817969;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        .login-back:hover {
+            color: #a45b3d;
+        }
+
+        @media (max-width: 750px) {
+            .login-main {
+                grid-template-columns: 1fr;
+            }
+
+            .login-art {
+                padding: 45px 20px;
+            }
+
+            .login-record {
+                width: 145px;
+                height: 145px;
+                margin: 25px 0;
+            }
+
+            .login-record-center {
+                width: 48px;
+                height: 48px;
+            }
+
+            .login-content {
+                padding: 55px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        <p>Welcome back. Your music is waiting.</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <span class="logo-disc">
+                    <span class="logo-disc-center"></span>
+                </span>
+                <span class="logo-name">MINYL</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="catalogo.html">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites ♡</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Join us</a>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="login-main">
+
+        <section class="login-art">
+
+            <span class="art-label">MINYL RECORDS</span>
+
+            <h1>Every record has a story.</h1>
+
+            <p>
+                Entre no seu espaço musical e continue descobrindo
+                discos que merecem fazer parte da sua coleção.
+            </p>
+
+            <div class="login-record">
+                <div class="login-record-center">M</div>
+            </div>
+
+            <p>Music sounds better when it feels like home.</p>
+
+        </section>
+
+        <section class="login-content">
+
+            <div class="login-box">
+
+                <span class="login-label">Your personal space</span>
+
+                <h2>Welcome back.</h2>
+
+                <p class="login-description">
+                    Que bom ter você de volta! Preencha seus dados para entrar.
+                </p>
+
+                <form id="loginForm">
+
+                    <div class="login-field">
+                        <label for="loginEmail">E-mail</label>
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="seuemail@exemplo.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="login-field">
+                        <label for="loginPassword">Senha</label>
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            name="senha"
+                            placeholder="Digite sua senha"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="login-submit">
+                        Sign in ♫
+                    </button>
+
+                </form>
+
+                <p class="login-alternative">
+                    Ainda não tem uma conta?
+                    <a href="cadastro.html">Create an account</a>
+                </p>
+
+                <a href="index.html" class="login-back">
+                    ← Back to home
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© <span data-current-year></span> MINYL — Música que fica.</p>
+            <a href="curriculo.pdf">Meu currículo</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>

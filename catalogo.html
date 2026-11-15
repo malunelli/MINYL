@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore a coleção de discos da MINYL Records. Encontre seu próximo vinil favorito!">
+
+    <title>Record Store | MINYL</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+
+    <style>
+        .catalog-hero {
+            background: var(--green);
+            color: var(--paper);
+            padding: 75px 7%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .catalog-hero::after {
+            content: "♫";
+            position: absolute;
+            right: 8%;
+            top: -60px;
+            font-size: 270px;
+            color: rgba(255,255,255,.07);
+            font-family: var(--font-title);
+        }
+
+        .catalog-hero .eyebrow {
+            color: var(--yellow);
+        }
+
+        .catalog-hero h1 {
+            max-width: 750px;
+            margin-top: 20px;
+            font-family: var(--font-title);
+            font-size: clamp(48px, 7vw, 76px);
+            line-height: 1.05;
+            font-weight: 500;
+        }
+
+        .catalog-hero h1 em {
+            color: var(--yellow);
+        }
+
+        .catalog-hero p {
+            max-width: 520px;
+            margin-top: 20px;
+            color: #E4E5D9;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .catalog-content {
+            max-width: 1400px;
+            margin: auto;
+            padding: 70px 7% 110px;
+        }
+
+        .catalog-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .catalog-count {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        .catalog-count strong {
+            color: var(--green);
+        }
+
+        .catalog-search {
+            width: min(100%, 300px);
+            min-height: 43px;
+            padding: 10px 14px;
+            border: 1px solid #DED3C2;
+            background: var(--paper);
+            outline: none;
+        }
+
+        .catalog-search:focus {
+            border-color: var(--orange);
+        }
+
+        .catalog-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .catalog-filters button {
+            padding: 11px 18px;
+            background: transparent;
+            border: 1px solid #D8CCBA;
+            color: var(--green);
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .catalog-filters button:hover,
+        .catalog-filters button.active {
+            background: var(--green);
+            border-color: var(--green);
+            color: var(--paper);
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 28px 20px;
+        }
+
+        .album-card {
+            min-width: 0;
+            background: var(--paper);
+            border: 1px solid #E7DCCB;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .album-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(55,43,31,.1);
+        }
+
+        .album-cover {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: var(--paper-dark);
+        }
+
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s;
+        }
+
+        .album-card:hover .album-cover img {
+            transform: scale(1.05);
+        }
+
+        .album-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 7px 10px;
+            background: var(--yellow);
+            color: var(--green-dark);
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .album-favorite {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: var(--paper);
+            color: var(--orange);
+            font-size: 21px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .album-favorite:hover,
+        .album-favorite.is-favorite {
+            background: var(--orange);
+            color: white;
+        }
+
+        .album-info {
+            padding: 18px;
+        }
+
+        .album-genre {
+            color: var(--orange);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .album-info h2 {
+            margin-top: 9px;
+            color: var(--green);
+            font-family: var(--font-title);
+            font-size: 21px;
+            line-height: 1.2;
+        }
+
+        .album-artist {
+            margin-top: 6px;
+            color: var(--gray);
+            font-size: 11px;
+        }
+
+        .album-bottom {
+            margin-top: 17px;
+            padding-top: 13px;
+            border-top: 1px solid #E8DECF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .album-price {
+            color: var(--green);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .album-details {
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .catalog-empty {
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--gray);
+            font-family: var(--font-title);
+            font-size: 23px;
+            grid-column: 1 / -1;
+        }
+
+        .catalog-note {
+            margin-top: 45px;
+            padding: 20px;
+            background: var(--yellow);
+            color: var(--green-dark);
+            text-align: center;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 1000px) {
+            .album-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .album-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 15px;
+            }
+
+            .catalog-content {
+                padding: 50px 5% 75px;
+            }
+
+            .album-info {
+                padding: 13px;
+            }
+
+            .album-info h2 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .album-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        <span>✦</span>
+        GOOD MUSIC NEVER GETS OLD — BOAS VIBES SEMPRE
+        <span>✦</span>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <div class="logo-disc">
+                    <div class="logo-disc-center"></div>
+                </div>
+                <span class="logo-name">MIN<span>Y</span>L</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="catalogo.html" class="active">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites ♡</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login.html" class="header-login">Login</a>
+                <a href="cadastro.html" class="header-register">Join us</a>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="catalog-hero">
+
+            <span class="eyebrow">
+                <span class="eyebrow-line"></span>
+                THE SOUND OF YOUR LIFE
+            </span>
+
+            <h1>
+                Find your next <em>favorite track.</em>
+            </h1>
+
+            <p>
+                Alguns discos você escuta. Outros você sente.
+                Explore nossa seleção, descubra novos sons e encontre
+                aquele vinil que parece ter sido feito para você.
+            </p>
+
+        </section>
+
+
+        <section class="catalog-content">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">
+                        <span class="eyebrow-line"></span>
+                        THE COLLECTION
+                    </span>
+
+                    <h2>Good records,<br><em>good memories.</em></h2>
+
+                    <p>Uma coleção feita para quem ama música de verdade.</p>
+                </div>
+
+            </div>
+
+
+            <div class="catalog-toolbar">
+
+                <p class="catalog-count">
+                    <strong>08 records</strong> para descobrir
+                </p>
+
+                <input
+                    type="search"
+                    class="catalog-search"
+                    id="albumSearch"
+                    placeholder="Buscar disco ou artista..."
+                    aria-label="Buscar discos"
+                >
+
+            </div>
+
+
+            <div class="catalog-filters">
+
+                <button type="button" class="active" data-category-filter="all">
+                    All records
+                </button>
+
+                <button type="button" data-category-filter="rock">
+                    Rock classics
+                </button>
+
+                <button type="button" data-category-filter="pop">
+                    Pop hits
+                </button>
+
+                <button type="button" data-category-filter="mpb">
+                    Brazilian soul
+                </button>
+
+                <button type="button" data-category-filter="indie">
+                    Indie vibes
+                </button>
+
+                <button type="button" data-category-filter="jazz">
+                    Jazz & blues
+                </button>
+
+            </div>
+
+
+            <div class="album-grid" id="albumGrid">
+
+
+                <!-- DISCO 1 -->
+                <article class="album-card" data-category="rock">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=600"
+                            alt="Disco de vinil sobre uma superfície"
+                        >
+
+                        <span class="album-tag">CLASSIC</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="Abbey Road"
+                            aria-label="Adicionar Abbey Road aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">Rock</span>
+                        <h2>Abbey Road</h2>
+                        <p class="album-artist">The Beatles · 1969</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 129,90</span>
+                            <span class="album-details">01 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 2 -->
+                <article class="album-card" data-category="pop">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?w=600"
+                            alt="Coleção de discos de vinil"
+                        >
+
+                        <span class="album-tag">FAN FAVORITE</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="1989"
+                            aria-label="Adicionar 1989 aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">Pop</span>
+                        <h2>1989</h2>
+                        <p class="album-artist">Taylor Swift · 2014</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 149,90</span>
+                            <span class="album-details">02 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 3 -->
+                <article class="album-card" data-category="mpb">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600"
+                            alt="Equipamento musical em ambiente vintage"
+                        >
+
+                        <span class="album-tag">BRAZILIAN</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="Elis & Tom"
+                            aria-label="Adicionar Elis & Tom aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">MPB</span>
+                        <h2>Elis & Tom</h2>
+                        <p class="album-artist">Elis Regina & Tom Jobim · 1974</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 119,90</span>
+                            <span class="album-details">03 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 4 -->
+                <article class="album-card" data-category="rock">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1461360228754-6e81c478b882?w=600"
+                            alt="Discos e objetos musicais"
+                        >
+
+                        <span class="album-tag">TIMELESS</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="Rumours"
+                            aria-label="Adicionar Rumours aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">Rock</span>
+                        <h2>Rumours</h2>
+                        <p class="album-artist">Fleetwood Mac · 1977</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 139,90</span>
+                            <span class="album-details">04 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 5 -->
+                <article class="album-card" data-category="indie">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600"
+                            alt="Palco de apresentação musical"
+                        >
+
+                        <span class="album-tag">INDIE PICK</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="AM"
+                            aria-label="Adicionar AM aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">Indie Rock</span>
+                        <h2>AM</h2>
+                        <p class="album-artist">Arctic Monkeys · 2013</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 159,90</span>
+                            <span class="album-details">05 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 6 -->
+                <article class="album-card" data-category="pop">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?w=600"
+                            alt="Discos de música em uma loja"
+                        >
+
+                        <span class="album-tag">GOLDEN HOUR</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="Future Nostalgia"
+                            aria-label="Adicionar Future Nostalgia aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">Pop</span>
+                        <h2>Future Nostalgia</h2>
+                        <p class="album-artist">Dua Lipa · 2020</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 144,90</span>
+                            <span class="album-details">06 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 7 -->
+                <article class="album-card" data-category="jazz">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600"
+                            alt="Instrumentos musicais em estúdio"
+                        >
+
+                        <span class="album-tag">SMOOTH SOUNDS</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="Kind of Blue"
+                            aria-label="Adicionar Kind of Blue aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">Jazz</span>
+                        <h2>Kind of Blue</h2>
+                        <p class="album-artist">Miles Davis · 1959</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 134,90</span>
+                            <span class="album-details">07 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+                <!-- DISCO 8 -->
+                <article class="album-card" data-category="mpb">
+
+                    <div class="album-cover">
+                        <img
+                            src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600"
+                            alt="Ambiente musical brasileiro"
+                        >
+
+                        <span class="album-tag">BRAZILIAN CLASSIC</span>
+
+                        <button
+                            class="album-favorite"
+                            type="button"
+                            data-favorite="Clube da Esquina"
+                            aria-label="Adicionar Clube da Esquina aos favoritos"
+                            aria-pressed="false"
+                        >♡</button>
+                    </div>
+
+                    <div class="album-info">
+                        <span class="album-genre">MPB</span>
+                        <h2>Clube da Esquina</h2>
+                        <p class="album-artist">Milton Nascimento · 1972</p>
+
+                        <div class="album-bottom">
+                            <span class="album-price">R$ 124,90</span>
+                            <span class="album-details">08 / 08</span>
+                        </div>
+                    </div>
+
+                </article>
+
+
+            </div>
+
+
+            <div class="catalog-note">
+                ✦ A good record is always worth another spin. ✦
+                <br>
+                Os discos e preços apresentados são exemplos para o projeto acadêmico.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo footer-logo">
+                    <div class="logo-disc">
+                        <div class="logo-disc-center"></div>
+                    </div>
+                    <span class="logo-name">MIN<span>Y</span>L</span>
+                </a>
+
+                <p>
+                    Música que fica.<br>
+                    Uma coleção para ouvir, sentir e guardar.
+                </p>
+
+                <span class="footer-motto">GOOD MUSIC NEVER GETS OLD.</span>
+
+            </div>
+
+
+            <div class="footer-column">
+                <h3>Explore</h3>
+                <a href="index.html">Home</a>
+                <a href="catalogo.html">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites</a>
+            </div>
+
+
+            <div class="footer-column">
+                <h3>Your account</h3>
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Create account</a>
+                <a href="admin.html">Admin</a>
+            </div>
+
+
+            <div class="footer-column">
+                <h3>MINYL</h3>
+                <a href="#">About us</a>
+                <a href="#">Contact</a>
+                <a href="curriculo.pdf" target="_blank">Meu currículo</a>
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+            <span>© <span data-current-year></span> MINYL RECORDS</span>
+            <span>MADE WITH MUSIC ♫</span>
+        </div>
+
+    </footer>
+
+</body>
+</html>

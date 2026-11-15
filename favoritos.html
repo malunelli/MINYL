@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites | MINYL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .favorites-hero {
+            background: #e9dfc9;
+            padding: 65px 8% 55px;
+            text-align: center;
+        }
+
+        .favorites-hero span {
+            color: #a45b3d;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .favorites-hero h1 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 62px);
+            margin: 15px 0;
+        }
+
+        .favorites-hero p {
+            color: #666052;
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .favorites-symbol {
+            color: #a45b3d;
+            font-size: 32px;
+            margin-top: 20px;
+        }
+
+        .favorites-section {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 65px 25px 90px;
+        }
+
+        .favorites-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .favorites-heading h2 {
+            font-family: 'Playfair Display', serif;
+            color: #303b2c;
+            font-size: 28px;
+        }
+
+        .favorites-heading p {
+            color: #8b8272;
+            font-size: 12px;
+        }
+
+        #favoritesList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .favorites-empty {
+            grid-column: 1 / -1;
+            background: #f4efe4;
+            border: 1px dashed #cfc3aa;
+            border-radius: 12px;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .favorites-empty .empty-icon {
+            color: #a45b3d;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .favorites-empty h3 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .favorites-empty p {
+            color: #777064;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .favorites-empty a {
+            display: inline-block;
+            background: #303b2c;
+            color: #fffdf7;
+            padding: 13px 22px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .favorites-empty a:hover {
+            background: #a45b3d;
+        }
+
+        .favorites-note {
+            margin-top: 45px;
+            padding: 20px;
+            border-top: 1px solid #e8dfcd;
+            text-align: center;
+            color: #8b8272;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .favorites-section {
+                padding: 45px 18px 65px;
+            }
+
+            .favorites-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+
+        /* CARDS DOS FAVORITOS */
+
+        #favoritesList {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .favorite-card {
+            background: #fffdf7;
+            border: 1px solid #e5dcc9;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .favorite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(48, 59, 44, 0.10);
+        }
+
+        .favorite-artwork {
+            height: 190px;
+            background: #d9c9a8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .favorite-vinyl {
+            width: 145px;
+            height: 145px;
+            border-radius: 50%;
+            background:
+                repeating-radial-gradient(
+                    circle,
+                    #252820 0px,
+                    #252820 3px,
+                    #35382e 4px,
+                    #252820 5px
+                );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+            transition: transform 0.5s;
+        }
+
+        .favorite-card:hover .favorite-vinyl {
+            transform: rotate(35deg);
+        }
+
+        .favorite-vinyl-center {
+            width: 48px;
+            height: 48px;
+            background: #a45b3d;
+            border: 4px solid #d5b77c;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff7e8;
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+        }
+
+        .favorite-vinyl-center span {
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .favorite-details {
+            padding: 21px;
+        }
+
+        .favorite-label {
+            color: #a45b3d;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .favorite-details h3 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            margin: 9px 0 4px;
+        }
+
+        .favorite-details p {
+            color: #837a6b;
+            font-size: 12px;
+            margin-bottom: 19px;
+        }
+
+        .favorite-remove {
+            width: 100%;
+            padding: 11px;
+            background: transparent;
+            border: 1px solid #cbbda5;
+            border-radius: 5px;
+            color: #8c503a;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .favorite-remove:hover {
+            background: #a45b3d;
+            border-color: #a45b3d;
+            color: #fffdf7;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        <p>Música que fica. Guarde seus discos favoritos.</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <span class="logo-disc">
+                    <span class="logo-disc-center"></span>
+                </span>
+                <span class="logo-name">MINYL</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="catalogo.html">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites ♡</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Join us</a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="favorites-hero">
+            <span>Your personal collection</span>
+
+            <h1>Saved with love.</h1>
+
+            <p>
+                Alguns discos merecem ficar por perto.
+                Aqui estão os seus favoritos, reunidos em um só lugar.
+            </p>
+
+            <div class="favorites-symbol">♡ ♪ ♡</div>
+        </section>
+
+        <section class="favorites-section">
+
+            <div class="favorites-heading">
+                <h2>My record collection</h2>
+                <p>Seus discos escolhidos com carinho.</p>
+            </div>
+
+            <div id="favoritesList">
+
+                <div class="favorites-empty">
+                    <div class="empty-icon">♡</div>
+
+                    <h3>Your collection is waiting.</h3>
+
+                    <p>
+                        Você ainda não adicionou nenhum disco aos favoritos.
+                        Explore nossa loja e encontre músicas para guardar.
+                    </p>
+
+                    <a href="catalogo.html">Explore the records</a>
+                </div>
+
+            </div>
+
+            <div class="favorites-note">
+                Seus favoritos ficam salvos neste navegador.
+                Volte sempre que quiser encontrar seus discos especiais.
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© <span data-current-year></span> MINYL — Música que fica.</p>
+            <a href="curriculo.pdf">Meu currículo</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>

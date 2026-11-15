@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | MINYL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .admin-hero {
+            background: #303b2c;
+            color: #fff8e9;
+            padding: 55px 8%;
+        }
+
+        .admin-hero span {
+            color: #d4b77a;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .admin-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(35px, 5vw, 52px);
+            margin: 12px 0;
+        }
+
+        .admin-hero p {
+            color: #d5d2c4;
+            font-size: 13px;
+        }
+
+        .admin-dashboard {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 50px 25px 85px;
+        }
+
+        .dashboard-heading {
+            margin-bottom: 25px;
+        }
+
+        .dashboard-heading h2 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .dashboard-heading p {
+            color: #817969;
+            font-size: 13px;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .dashboard-stat {
+            background: #fffdf7;
+            border: 1px solid #e8dfcd;
+            border-radius: 10px;
+            padding: 23px;
+        }
+
+        .dashboard-stat span {
+            color: #8b8272;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-stat strong {
+            display: block;
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-top: 10px;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 330px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .admin-panel {
+            background: #fffdf7;
+            border: 1px solid #e8dfcd;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .admin-panel h3 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .panel-description {
+            color: #8b8272;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .admin-form .form-group {
+            margin-bottom: 17px;
+        }
+
+        .admin-form label {
+            display: block;
+            color: #454638;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .admin-form input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #ddd3c0;
+            border-radius: 5px;
+            background: #fffdf8;
+            color: #303b2c;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .admin-form input:focus,
+        .admin-search:focus {
+            border-color: #66734f;
+            box-shadow: 0 0 0 3px rgba(102, 115, 79, 0.12);
+        }
+
+        .admin-form button {
+            width: 100%;
+            padding: 14px;
+            background: #303b2c;
+            color: #fffdf7;
+            border: none;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .admin-form button:hover {
+            background: #a45b3d;
+        }
+
+        .admin-list-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .admin-list-heading h3 {
+            margin-bottom: 0;
+        }
+
+        .admin-search {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 15px;
+            border: 1px solid #ddd3c0;
+            border-radius: 5px;
+            background: #fffdf8;
+            color: #303b2c;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            outline: none;
+            margin-bottom: 18px;
+        }
+
+        .admin-user-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .admin-user-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 17px 0;
+            border-bottom: 1px solid #eee7da;
+        }
+
+        .admin-user-list li:last-child {
+            border-bottom: none;
+        }
+
+        .user-information {
+            min-width: 0;
+        }
+
+        .user-information strong {
+            display: block;
+            color: #303b2c;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .user-information p {
+            color: #817969;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .user-information small {
+            display: block;
+            color: #a49a87;
+            font-size: 10px;
+            margin-top: 6px;
+        }
+
+        .admin-user-list button {
+            flex-shrink: 0;
+            background: transparent;
+            border: 1px solid #c9a99a;
+            border-radius: 4px;
+            color: #a45b3d;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .admin-user-list button:hover {
+            background: #a45b3d;
+            color: white;
+        }
+
+        .admin-delete-all {
+            display: block;
+            margin-left: auto;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: transparent;
+            border: 1px solid #c9a99a;
+            border-radius: 5px;
+            color: #a45b3d;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .admin-delete-all:hover {
+            background: #a45b3d;
+            color: #fff;
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-user-list li {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        #adminForm {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 14px;
+            width: 100%;
+        }
+
+        #adminForm label {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        #adminForm input {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            min-height: 50px;
+            box-sizing: border-box;
+            padding: 14px 15px;
+            border: 1px solid #dfd1bd;
+            border-radius: 7px;
+            background: #fffdf9;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        #adminForm button {
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            #adminForm button {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        <p>MINYL RECORDS — Management area</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <span class="logo-disc">
+                    <span class="logo-disc-center"></span>
+                </span>
+                <span class="logo-name">MINYL</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="catalogo.html">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites ♡</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Join us</a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="admin-hero">
+            <span>MINYL / MANAGEMENT</span>
+            <h1>Admin Dashboard.</h1>
+            <p>Gerencie os cadastros e acompanhe os usuários da nossa coleção.</p>
+        </section>
+
+        <section class="admin-dashboard">
+
+            <div class="dashboard-heading">
+                <h2>Overview</h2>
+                <p>Resumo dos cadastros realizados nesta área administrativa.</p>
+            </div>
+
+            <div class="dashboard-stats">
+
+                <div class="dashboard-stat">
+                    <span>Total de usuários</span>
+                    <strong>0</strong>
+                </div>
+
+                <div class="dashboard-stat">
+                    <span>Plataforma</span>
+                    <strong>MINYL</strong>
+                </div>
+
+                <div class="dashboard-stat">
+                    <span>Status</span>
+                    <strong>Ativa</strong>
+                </div>
+
+            </div>
+
+            <div class="dashboard-layout">
+
+                <section class="admin-panel">
+
+                    <h3>New user</h3>
+
+                    <p class="panel-description">
+                        Adicione um usuário à lista administrativa da MINYL.
+                    </p>
+
+                    <form id="adminForm" class="admin-form">
+
+                        <div class="form-group">
+                            <label for="adminName">Nome completo</label>
+                            <input
+                                type="text"
+                                id="adminName"
+                                name="nome"
+                                placeholder="Digite o nome"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adminEmail">E-mail</label>
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                name="email"
+                                placeholder="Digite o e-mail"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit">
+                            + Add user
+                        </button>
+
+                    </form>
+
+                </section>
+
+                <section class="admin-panel">
+
+                    <div class="admin-list-heading">
+                        <h3>User collection</h3>
+                    </div>
+
+                    <p class="panel-description">
+                        Consulte, pesquise e gerencie os usuários cadastrados.
+                    </p>
+
+                    <input
+                        type="search"
+                        id="adminSearch"
+                        class="admin-search"
+                        placeholder="Buscar por nome ou e-mail..."
+                        aria-label="Pesquisar usuários por nome ou e-mail"
+                    >
+
+                    <ul id="userList" class="admin-user-list">
+                        <li>Nenhum usuário cadastrado ainda.</li>
+                    </ul>
+
+                    <button
+                        type="button"
+                        id="deleteAll"
+                        class="admin-delete-all"
+                    >
+                        Delete all users
+                    </button>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© <span data-current-year></span> MINYL — Música que fica.</p>
+            <a href="curriculo.pdf">Meu currículo</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>

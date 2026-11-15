@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join MINYL | Create an Account</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .register-main {
+            min-height: 750px;
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            background: #f6f1e7;
+        }
+
+        .register-art {
+            background: #303b2c;
+            color: #fff8e9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 30px;
+        }
+
+        .register-art-label {
+            color: #d4b77a;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .register-art h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 55px);
+            line-height: 1.15;
+            margin: 20px 0;
+            max-width: 400px;
+        }
+
+        .register-art p {
+            color: #d5d2c4;
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 340px;
+        }
+
+        .register-vinyl {
+            width: 190px;
+            height: 190px;
+            margin: 35px 0;
+            border-radius: 50%;
+            background:
+                repeating-radial-gradient(
+                    circle,
+                    #22251f 0px,
+                    #22251f 3px,
+                    #383c32 4px,
+                    #22251f 5px
+                );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-vinyl-center {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #a45b3d;
+            border: 5px solid #d4b77a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+        }
+
+        .register-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 55px 35px;
+        }
+
+        .register-box {
+            width: 100%;
+            max-width: 490px;
+        }
+
+        .register-label {
+            color: #a45b3d;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .register-box h2 {
+            color: #303b2c;
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            margin: 12px 0 8px;
+        }
+
+        .register-description {
+            color: #817969;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .register-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .register-field {
+            margin-bottom: 17px;
+        }
+
+        .register-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .register-field label {
+            display: block;
+            color: #454638;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .register-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #ddd3c0;
+            border-radius: 5px;
+            background: #fffdf8;
+            color: #303b2c;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .register-field input:focus {
+            border-color: #66734f;
+            box-shadow: 0 0 0 3px rgba(102, 115, 79, 0.12);
+        }
+
+        .register-submit {
+            width: 100%;
+            padding: 15px;
+            margin-top: 8px;
+            background: #303b2c;
+            color: #fffdf7;
+            border: none;
+            border-radius: 5px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .register-submit:hover {
+            background: #a45b3d;
+        }
+
+        .register-alternative {
+            text-align: center;
+            color: #817969;
+            font-size: 12px;
+            margin-top: 23px;
+        }
+
+        .register-alternative a {
+            color: #a45b3d;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .register-alternative a:hover {
+            text-decoration: underline;
+        }
+
+        .register-back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #817969;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        .register-back:hover {
+            color: #a45b3d;
+        }
+
+        @media (max-width: 800px) {
+            .register-main {
+                grid-template-columns: 1fr;
+            }
+
+            .register-art {
+                padding: 45px 20px;
+            }
+
+            .register-vinyl {
+                width: 140px;
+                height: 140px;
+                margin: 25px 0;
+            }
+
+            .register-vinyl-center {
+                width: 48px;
+                height: 48px;
+            }
+
+            .register-content {
+                padding: 45px 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .register-field.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        <p>Every collection starts somewhere. Start yours here.</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                <span class="logo-disc">
+                    <span class="logo-disc-center"></span>
+                </span>
+                <span class="logo-name">MINYL</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="catalogo.html">Record Store</a>
+                <a href="teste.html">Find Your Sound</a>
+                <a href="favoritos.html">Favorites ♡</a>
+                <a href="admin.html">Admin</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Join us</a>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="register-main">
+
+        <section class="register-art">
+
+            <span class="register-art-label">WELCOME TO MINYL</span>
+
+            <h1>Your story deserves a soundtrack.</h1>
+
+            <p>
+                Descubra novos artistas, encontre discos especiais
+                e monte uma coleção com a sua personalidade.
+            </p>
+
+            <div class="register-vinyl">
+                <div class="register-vinyl-center">M</div>
+            </div>
+
+            <p>Good music. Good memories. Always.</p>
+
+        </section>
+
+        <section class="register-content">
+
+            <div class="register-box">
+
+                <span class="register-label">Become part of our collection</span>
+
+                <h2>Create your account.</h2>
+
+                <p class="register-description">
+                    Preencha seus dados e comece sua experiência musical com a MINYL.
+                </p>
+
+                <form id="registerForm">
+
+                    <div class="register-grid">
+
+                        <div class="register-field full">
+                            <label for="registerName">Full name</label>
+                            <input
+                                type="text"
+                                id="registerName"
+                                name="nome"
+                                placeholder="Seu nome completo"
+                                required
+                            >
+                        </div>
+
+                        <div class="register-field full">
+                            <label for="registerEmail">E-mail</label>
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                name="email"
+                                placeholder="seuemail@exemplo.com"
+                                required
+                            >
+                        </div>
+
+                        <div class="register-field">
+                            <label for="registerPhone">Phone number</label>
+                            <input
+                                type="tel"
+                                id="registerPhone"
+                                name="telefone"
+                                placeholder="(00) 00000-0000"
+                                required
+                            >
+                        </div>
+
+                        <div class="register-field">
+                            <label for="registerBirth">Date of birth</label>
+                            <input
+                                type="date"
+                                id="registerBirth"
+                                name="nascimento"
+                                required
+                            >
+                        </div>
+
+                        <div class="register-field">
+                            <label for="registerPassword">Password</label>
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                name="senha"
+                                placeholder="Create a password"
+                                minlength="6"
+                                required
+                            >
+                        </div>
+
+                        <div class="register-field">
+                            <label for="registerConfirm">Confirm password</label>
+                            <input
+                                type="password"
+                                id="registerConfirm"
+                                name="confirmarSenha"
+                                placeholder="Repeat your password"
+                                minlength="6"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="register-submit">
+                        Create my account ♫
+                    </button>
+
+                </form>
+
+                <p class="register-alternative">
+                    Já faz parte da MINYL?
+                    <a href="login.html">Sign in</a>
+                </p>
+
+                <a href="index.html" class="register-back">
+                    ← Back to home
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© <span data-current-year></span> MINYL — Música que fica.</p>
+            <a href="curriculo.pdf">Meu currículo</a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
